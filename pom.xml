@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pipipark.j</groupId>
+	<artifactId>tool</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.pipipark.j</groupId>
+			<artifactId>System</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+	
+	<modules>
+		<module>Bootclick</module>
+		<module>Windows</module>
+		<module>Sms</module>
+		<module>Email</module>
+		<module>Randoms</module>
+		<module>Database</module>
+		<module>Jpush</module>
+		<module>Netty</module>
+	</modules>
+
+	<organization>
+		<url>http://www.pipipark.com</url>
+		<name>皮皮公园</name>
+	</organization>
+
+	<build>
+		<plugins>
+			<!-- maven编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+					<verbal>true</verbal>
+				</configuration>
+			</plugin>
+
+			<!-- maven源代码打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
