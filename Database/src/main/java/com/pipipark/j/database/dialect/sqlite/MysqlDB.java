@@ -8,22 +8,36 @@ import org.apache.commons.dbcp.BasicDataSource;
 import com.pipipark.j.database.PPPDatabase;
 import com.pipipark.j.database.exception.PPPSqlException;
 import com.pipipark.j.system.core.PPPConstant;
+import com.pipipark.j.system.core.PPPString;
 
 @SuppressWarnings("serial")
-public abstract class SqliteDB extends PPPDatabase {
-
+public abstract class MysqlDB extends PPPDatabase {
+	
+	public final static String DEFAULT_MYSQL_IP="127.0.0.1";
+	public final static Integer DEFAULT_MYSQL_PORT=3306;
 	
 	@Override
 	public void dataSource(BasicDataSource ds) {
-		ds.setDriverClassName("org.sqlite.JDBC");
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		StringBuilder builder = new StringBuilder();
-		builder.append("jdbc:sqlite:");
-		String usrHome = PPPConstant.Systems.USER_HOME;
-		builder.append(usrHome);
-		builder.append("/sqlite-");
+		String ip = ip();
+		Integer port = port();
+		builder.append("jdbc:mysql://");
+		builder.append(PPPString.isRealEmpty(ip)?DEFAULT_MYSQL_IP:ip);
+		builder.append(":");
+		builder.append((port==null||port==0)?DEFAULT_MYSQL_IP:port);
+		builder.append("/");
 		builder.append(this.name());
 		builder.append(".db");
 		ds.setUrl(builder.toString());
+	}
+	
+	protected String ip(){
+		return DEFAULT_MYSQL_IP;
+	}
+	
+	protected Integer port(){
+		return DEFAULT_MYSQL_PORT;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -43,7 +57,7 @@ public abstract class SqliteDB extends PPPDatabase {
 	}
 	
 	public static void main(String[] args){
-		SqliteDB db=new SqliteDB() {
+		MysqlDB db=new MysqlDB() {
 			
 			@Override
 			public String dbUser() {
@@ -59,9 +73,19 @@ public abstract class SqliteDB extends PPPDatabase {
 			public String dbName() {
 				return "pipipark";
 			}
+
+			@Override
+			public String ip() {
+				return null;
+			}
+
+			@Override
+			public Integer port() {
+				return null;
+			}
 		};
 		try {
-			db.<SqliteDB>open().executeUpdate("insert into person ('name','password') values ('jean','123')");
+			db.<MysqlDB>open().executeUpdate("insert into person ('name','password') values ('jean','123')");
 			db.close();
 		} catch (PPPSqlException e) {
 			e.printStackTrace();

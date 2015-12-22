@@ -30,7 +30,7 @@ public class MyDB extends SqliteDB {
 		MyDB db = new MyDB();
 		try {
 			db.open();
-//			db.executeUpdate("insert into persons ('num',name) values (2,'alalei')");
+//			db.executeUpdate("insert into persons ('num',name) values (3,'alalei2')");
 			List<PPPRecord> list = db.executeQuery("select * from persons");
 			System.out.println("result:");
 			for (PPPRecord person : list) {

@@ -56,6 +56,12 @@ public class PPPDb {
 		if(ds==null){
 			ds = new BasicDataSource();
 			db.dataSource(ds);
+			ds.setDefaultAutoCommit(false);
+			ds.setInitialSize(100);
+			ds.setMaxActive(0);
+			ds.setMaxIdle(10);
+			ds.setValidationQuery("select 1");
+			ds.setMaxWait(10000);
 			dbs.put(db.getClass(), ds);
 		}
 		return ds;
