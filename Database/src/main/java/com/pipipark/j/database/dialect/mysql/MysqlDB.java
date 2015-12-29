@@ -1,4 +1,4 @@
-package com.pipipark.j.database.dialect.sqlite;
+package com.pipipark.j.database.dialect.mysql;
 
 import java.sql.Blob;
 import java.sql.Clob;
@@ -28,7 +28,6 @@ public abstract class MysqlDB extends PPPDatabase {
 		builder.append((port==null||port==0)?DEFAULT_MYSQL_IP:port);
 		builder.append("/");
 		builder.append(this.name());
-		builder.append(".db");
 		ds.setUrl(builder.toString());
 	}
 	
@@ -43,14 +42,20 @@ public abstract class MysqlDB extends PPPDatabase {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public String dialect(Class type){
-		if(type == Integer.class || type == Long.class){
-			return "integer";
+		if(type == Short.class){
+			return "smallint(2)";
+		}else if(type == Integer.class){
+			return "int(10)";
+		}else if(type == Long.class){
+			return "bigint";
 		}else if(type == Double.class || type == Float.class){
 			return "real";
-		}else if(type == String.class || type == Clob.class){
-			return "text";
+		}else if(type == String.class){
+			return "varchar(50)";
+		}else if(type == Clob.class){
+			return "mediumtext";
 		}else if(type == Blob.class){
-			return "blob";
+			return "mediumblob";
 		}else{
 			return "numeric";
 		}
@@ -61,27 +66,27 @@ public abstract class MysqlDB extends PPPDatabase {
 			
 			@Override
 			public String dbUser() {
-				return null;
+				return "root";
 			}
 			
 			@Override
 			public String dbPassword() {
-				return null;
+				return "123456";
 			}
 			
 			@Override
 			public String dbName() {
-				return "pipipark";
+				return "account";
 			}
 
 			@Override
 			public String ip() {
-				return null;
+				return "127.0.0.1";
 			}
 
 			@Override
 			public Integer port() {
-				return null;
+				return 3306;
 			}
 		};
 		try {

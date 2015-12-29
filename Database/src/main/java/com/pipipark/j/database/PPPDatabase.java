@@ -12,7 +12,10 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.lang.StringUtils;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 import com.pipipark.j.database.annotation.PrimaryKey;
+import com.pipipark.j.database.dialect.mysql.MysqlDB;
+import com.pipipark.j.database.dialect.sqlite.SqliteDB;
 import com.pipipark.j.database.exception.PPPSqlException;
 import com.pipipark.j.database.tool.PPPDb;
 import com.pipipark.j.database.tool.PPPRecord;
@@ -65,7 +68,7 @@ public abstract class PPPDatabase extends SimplePPPEntity {
 	}
 	public String password() {
 		if(StringUtils.isEmpty(pass)){
-			String pass = dbUser();
+			String pass = dbPassword();
 			if (StringUtils.isEmpty(pass)) {
 				pass = PPPDb.DEFULT_PASSWORD;
 			}
@@ -137,9 +140,16 @@ public abstract class PPPDatabase extends SimplePPPEntity {
 		Connection conn = PPPDb.getConnection(this);
 		QueryRunner runner = new QueryRunner();
 		try {
-			List<Map<String, Object>> result = runner.query(conn, "select * from sqlite_master where type='table' and name ='"+name+"';", new MapListHandler());
-			if(result!=null && result.size()>0){
-				return true;
+			if(this instanceof SqliteDB){
+				List<Map<String, Object>> result = runner.query(conn, "select * from sqlite_master where type='table' and name ='"+name+"';", new MapListHandler());
+				if(result!=null && result.size()>0){
+					return true;
+				}
+			}else if(this instanceof MysqlDB){
+				List<Map<String, Object>> result = runner.query(conn, "select table_name from information_schema.tables where table_name='"+name+"';", new MapListHandler());
+				if(result!=null && result.size()>0){
+					return true;
+				}
 			}
 		} catch (SQLException e) {
 			throw new PPPSqlException("Table isExist happen Exception!", e);
@@ -175,7 +185,9 @@ public abstract class PPPDatabase extends SimplePPPEntity {
 				PrimaryKey primary = pppField.annotation(PrimaryKey.class);
 				if(primary!=null){
 					builder.append(" primary key");
-					builder.append(" not null,");
+					builder.append(" not null");
+					builder.append(" auto_increment,");
+					
 				}else{
 					builder.append(" null,");
 				}
