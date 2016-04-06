@@ -25,7 +25,7 @@ public class JNIOServer{
 	}
 	
 	
-	private String packagePath = "";
+	private String packagePath = "com";
 	private String serverIP = "127.0.0.1";
 	private Integer serverPort = 9999;
 	private Map<Integer, Class<IHandler>> keys = new HashMap<Integer, Class<IHandler>>();
