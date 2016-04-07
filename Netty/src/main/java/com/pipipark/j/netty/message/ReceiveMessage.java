@@ -1,6 +1,10 @@
 package com.pipipark.j.netty.message;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Map;
+
+
 
 
 
@@ -30,7 +34,6 @@ public class ReceiveMessage {
 	private Map<String, Object> chacheMap = null;
 	private Object chacheBean = null;
 	
-	
 	public Integer getProtocolID() {
 		return protocolID;
 	}
@@ -51,9 +54,13 @@ public class ReceiveMessage {
 		msg = (ByteBuf)buf;
 		byte[] data = new byte[msg.readableBytes()];
 		msg.readBytes(data);
-		content = JSONObject.fromObject(new String(data, "UTF-8"));
-		protocolID = content.getInt(NID.PROTOCOL_ID);
-		content.remove(NID.PROTOCOL_ID);
+		try{
+			content = JSONObject.fromObject(new String(data, "UTF-8"));
+			protocolID = content.getInt(NID.PROTOCOL_ID);
+			content.remove(NID.PROTOCOL_ID);
+		}catch(Exception e){
+			 
+		}
 	}
 	
 	public Map<String, Object> toMap(){

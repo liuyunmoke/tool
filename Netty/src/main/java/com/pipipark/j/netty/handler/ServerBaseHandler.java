@@ -1,5 +1,6 @@
 package com.pipipark.j.netty.handler;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +19,16 @@ public class ServerBaseHandler extends ChannelHandlerAdapter {
 	
 	@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		ReceiveMessage message = new ReceiveMessage(ctx, msg);
-		System.out.println(ctx.name()+" serverRead! msg: "+ message.getContent().toString());
-		Class<IHandler> clazz= JNIOServer.getInstance().getKey(message.getProtocolID());
-		clazz.newInstance().handler(message, JNIOServer.getInstance().getClients().get(ctx));
+//		ReceiveMessage message = new ReceiveMessage(ctx, msg);
+//		System.out.println(ctx.name()+" serverRead! msg: "+ message.getContent().toString());
+//		Class<IHandler> clazz= JNIOServer.getInstance().getKey(message.getProtocolID());
+//		clazz.newInstance().handler(message, JNIOServer.getInstance().getClients().get(ctx));
+		Object[] receivedInfo = (Object[]) msg; // 接受到的文件信息  
+        File file = (File) receivedInfo[0];  
+        String fileName = file.getName();  
+        System.out.println("received zipfile info : file_name = " + fileName  
+                + " and md5 = " + receivedInfo[1] + " and count = "  
+                + receivedInfo[2] + " and total = " + receivedInfo[3]);
     }
 	
 	@Override

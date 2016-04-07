@@ -31,6 +31,7 @@ public class RunServer implements Runnable {
 									new LineBasedFrameDecoder(1024));
 							sc.pipeline().addLast(new StringEncoder());
 							sc.pipeline().addLast(new ServerBaseHandler());
+//							sc.pipeline().addFirst(new ChunkedReadHandler(5*1024));
 						}
 					});
 			ChannelFuture f;
