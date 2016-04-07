@@ -23,7 +23,7 @@ public class JNIOClient{
 		return me;
 	}
 	
-	private String packagePath = "";
+	private String packagePath = "com";
 	private String connectIP = null;
 	private Integer connectPort = null;
 	private ChannelHandlerContext context = null;

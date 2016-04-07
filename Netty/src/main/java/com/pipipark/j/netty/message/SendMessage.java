@@ -1,8 +1,20 @@
 package com.pipipark.j.netty.message;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.stream.ChunkedFile;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.Map;
 
 import com.pipipark.j.netty.constant.NID;
@@ -10,7 +22,6 @@ import com.pipipark.j.netty.exception.MessageException;
 import com.pipipark.j.netty.util.JsonUtil;
 
 import net.sf.json.JSONObject;
-
 
 /**
  * 服务端发送消息
@@ -23,7 +34,7 @@ public class SendMessage {
 	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	public static void send(ChannelHandlerContext ctx, Integer protocolID,
 			Object param) {
-		if(ctx==null){
+		if (ctx == null) {
 			throw new MessageException("not connect!");
 		}
 		JSONObject json = null;
@@ -43,6 +54,22 @@ public class SendMessage {
 			return;
 		}
 		throw new MessageException("sendMessage json is null!");
+	}
+
+	public static void sendFile(ChannelHandlerContext ctx, File file) throws IOException {
+		FileInputStream fis = new FileInputStream(file);
+		int count = 0;
+		for (;;) {
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			byte[] bytes = new byte[8];
+			int readNum = bis.read(bytes, 0, 8);
+			if (readNum == -1) {
+				return;
+			}
+			ByteBuf buffer = Unpooled.copiedBuffer(bytes, 0, 8);
+			ctx.writeAndFlush(buffer);
+			System.out.println("Send count: " + ++count);
+		}
 	}
 
 	private static String addRN(String msg) {

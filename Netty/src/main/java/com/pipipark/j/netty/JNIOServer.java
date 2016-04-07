@@ -11,9 +11,11 @@ import com.pipipark.j.netty.annotation.KeyService;
 import com.pipipark.j.netty.event.JNIOEvent;
 import com.pipipark.j.netty.handler.IHandler;
 import com.pipipark.j.system.classscan.v1.PPPScan;
+import com.pipipark.j.system.entity.PPPEntity;
 
 
-public class JNIOServer{
+@SuppressWarnings("serial")
+public class JNIOServer extends PPPEntity{
 
 	private static JNIOServer me = null;
 	private JNIOServer(){}
@@ -23,7 +25,6 @@ public class JNIOServer{
 		}
 		return me;
 	}
-	
 	
 	private String packagePath = "com";
 	private String serverIP = "127.0.0.1";
@@ -95,5 +96,9 @@ public class JNIOServer{
 	}
 	public void setServerIP(String serverIP) {
 		this.serverIP = serverIP;
+	}
+	@Override
+	public void desc(StringBuilder string) throws Exception {
+		
 	}
 }

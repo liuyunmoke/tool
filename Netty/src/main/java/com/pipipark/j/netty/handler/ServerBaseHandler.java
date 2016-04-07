@@ -1,8 +1,10 @@
 package com.pipipark.j.netty.handler;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.pipipark.j.netty.JNIOServer;
+import com.pipipark.j.netty.event.DisconnectEvent;
 import com.pipipark.j.netty.event.JNIOEvent;
 import com.pipipark.j.netty.exception.ProtocolBreakException;
 import com.pipipark.j.netty.message.ReceiveMessage;
@@ -52,9 +54,13 @@ public class ServerBaseHandler extends ChannelHandlerAdapter {
 		System.out.println("added");
     }
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("removed");
+		Map<String, ChannelHandlerContext> p = new HashMap<String, ChannelHandlerContext>();
+		p.put("ctx", ctx);
+		JNIOServer.getInstance().fireListener(DisconnectEvent.class, p);
     }
 	
 	@Override
