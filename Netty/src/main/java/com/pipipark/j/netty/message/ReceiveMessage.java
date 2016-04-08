@@ -2,6 +2,7 @@ package com.pipipark.j.netty.message;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -10,6 +11,10 @@ import java.util.Map;
 
 
 
+
+
+
+import org.apache.commons.codec.binary.Base64;
 
 import net.sf.json.JSONObject;
 
@@ -54,13 +59,32 @@ public class ReceiveMessage {
 		msg = (ByteBuf)buf;
 		byte[] data = new byte[msg.readableBytes()];
 		msg.readBytes(data);
-		try{
-			content = JSONObject.fromObject(new String(data, "UTF-8"));
+		String msgDataStr = new String(data,"utf-8");
+		if(msgDataStr.charAt(0) == '@' && msgDataStr.charAt(1) == '1'){
+			content = JSONObject.fromObject(msgDataStr.substring(2,msgDataStr.length()));
 			protocolID = content.getInt(NID.PROTOCOL_ID);
-			content.remove(NID.PROTOCOL_ID);
-		}catch(Exception e){
-			 
+		}else{
+			byte[] fileData = Base64.decodeBase64(data);
+			String fileStr = new String(fileData,"utf-8");
+			Map<String, byte[]> file = new HashMap<String, byte[]>();
+			file.put("file", fileStr.getBytes());
+			content = JSONObject.fromObject(file);
+			protocolID = 39393939;
 		}
+		content.remove(NID.PROTOCOL_ID);
+		
+//		String msgStr = new String(msgData,"utf-8");
+//		
+//		
+//		if("@1".equals(type)){
+//			content = JSONObject.fromObject(str);
+//			protocolID = content.getInt(NID.PROTOCOL_ID);
+//		}else{
+//			Map<String, byte[]> file = new HashMap<String, byte[]>();
+//			file.put("file", str.getBytes());
+//			content = JSONObject.fromObject(file);
+//			protocolID = 39393939;
+//		}
 	}
 	
 	public Map<String, Object> toMap(){

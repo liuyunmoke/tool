@@ -16,7 +16,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.pipipark.j.netty.constant.NID;
 import com.pipipark.j.netty.exception.MessageException;
@@ -46,12 +49,18 @@ public class SendMessage {
 		}
 		json.put(NID.PROTOCOL_ID, protocolID);
 		if (json != null) {
-			synchronized (ctx) {
-				ctx.channel()
-						.writeAndFlush(
-								Unpooled.copiedBuffer(addRN(json.toString())
-										.getBytes()));
-			}
+//			try {
+//				byte[] data = Base64.encodeBase64(addRN("@1" + json.toString())
+//						.getBytes());
+//				String str = new String(data, "UTF-8");
+
+				synchronized (ctx) {
+					ctx.channel().writeAndFlush(
+							Unpooled.copiedBuffer(addRN("@1" + json.toString()).getBytes()));
+				}
+//			} catch (UnsupportedEncodingException e) {
+//				e.printStackTrace();
+//			}
 			return;
 		}
 		throw new MessageException("sendMessage json is null!");
@@ -59,49 +68,43 @@ public class SendMessage {
 
 	public static void sendFile(ChannelHandlerContext ctx, File file)
 			throws IOException {
+
+		int size = (int) file.length();
+		FileInputStream in = new FileInputStream(file);
+		byte[] fileByte = new byte[size + 2];
+		in.read(fileByte);
 		
-		Object[] sendInfo = new Object[2];
-		sendInfo[0] = file;
+		
+//		System.arraycopy(fileByte, 0, image, 0, fileByte.length);
+//		System.arraycopy(rnByte, 0, image, fileByte.length, rnByte.length);
+
+//		byte[] data = Base64.encodeBase64(image);
+		// System.out.println(data);
+		// byte[] strData = Base64.decodeBase64(data);
+		// System.out.println(strData);
+//		String str = new String(data, "UTF-8");
+
 		synchronized (ctx) {
-			ctx.writeAndFlush(sendInfo);
+			ctx.channel().writeAndFlush(Unpooled.copiedBuffer(fileByte));
 		}
-		
-//		int size = (int) file.length();
-//		byte[] rnByte = "\r\n".getBytes();
-//		FileInputStream in = new FileInputStream(file);
-//		byte[] fileByte = new byte[size];
-//		in.read(fileByte);
-//		
-//		byte[] image = new byte[fileByte.length+rnByte.length];
-//		
-//		System.arraycopy(fileByte,0,image,0,fileByte.length);
-//		System.arraycopy(rnByte,0,image,fileByte.length,rnByte.length);
-//		
-//		synchronized (ctx) {
-//			ctx.channel()
-//					.writeAndFlush(
-//							Unpooled.copiedBuffer(image));
-//		}
-		
-//		final ChannelHandlerContext cctx = ctx;
-//		ctx.writeAndFlush(String.valueOf(file.length()));
-//		ctx.pipeline().addFirst(new ChunkedWriteHandler());
-//		ctx.channel().writeAndFlush(new ChunkedFile(file));
-//
-//		ChannelFuture f = ctx.writeAndFlush(new ChunkedFile(file));
-//
-//		f.addListener(new ChannelFutureListener() {
-//
-//			public void operationComplete(ChannelFuture future)
-//					throws Exception {
-//				cctx.pipeline().removeFirst();
-//			}
-//		});
-//		ChannelFuture ch = ctx.writeAndFlush("end\n");
-//		ch.addListener(ChannelFutureListener.CLOSE);
-		
-		
-		
+
+		// final ChannelHandlerContext cctx = ctx;
+		// ctx.writeAndFlush(String.valueOf(file.length()));
+		// ctx.pipeline().addFirst(new ChunkedWriteHandler());
+		// ctx.channel().writeAndFlush(new ChunkedFile(file));
+		//
+		// ChannelFuture f = ctx.writeAndFlush(new ChunkedFile(file));
+		//
+		// f.addListener(new ChannelFutureListener() {
+		//
+		// public void operationComplete(ChannelFuture future)
+		// throws Exception {
+		// cctx.pipeline().removeFirst();
+		// }
+		// });
+		// ChannelFuture ch = ctx.writeAndFlush("end\n");
+		// ch.addListener(ChannelFutureListener.CLOSE);
+
 		// FileInputStream fis = new FileInputStream(file);
 		// int count = 0;
 		// for (;;) {
