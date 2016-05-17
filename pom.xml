@@ -23,6 +23,7 @@
 		<module>Database</module>
 		<module>Jpush</module>
 		<module>Netty</module>
+		<module>Spring</module>
 	</modules>
 
 	<organization>
@@ -65,12 +66,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+			<url>http://www.pipipark.cn:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+			<url>http://www.pipipark.cn:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
