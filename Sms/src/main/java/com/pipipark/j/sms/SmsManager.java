@@ -99,7 +99,7 @@ public final class SmsManager {
 			// 发送post请求
 			method = new PostMethod(sendStr);
 		}
-		method.getParams().setContentCharset(PPPConstant.Systems.DEFAULT_CHARSET);
+		method.getParams().setContentCharset(PPPConstant.Charset.Default.value());
 		int httpStatusCode = -1;
 		SmsDB db = new SmsDB();
 		try {
@@ -110,7 +110,7 @@ public final class SmsManager {
 			for (String phone : content.mobile()) {
 				try{
 					List<PhoneSms> ps = db.executeQuery("select * from PhoneSms where phone='"+phone+"' and type = "+content.type(), PhoneSms.class);
-					String date = PPPDate.now().format(PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss_SSS);
+					String date = PPPDate.now().format(PPPDate.Dateformat.yyyyMMddHHmmssSSS);
 					if(ps==null || ps.isEmpty()){
 						db.executeUpdate("insert into PhoneSms ('sender','phone','content','type','updateDate') values ('"+sendUser+"','"+phone+"','"+content.content()+"',"+content.type()+", '"+date+"')");
 					}else{

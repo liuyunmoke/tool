@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
-import com.pipipark.j.mvc.core.PPPResonpse;
 import com.pipipark.j.system.core.PPPVersion;
+import com.pipipark.j.web.core.PPPResonpse;
 
 /***
  * 服务功能过滤器,

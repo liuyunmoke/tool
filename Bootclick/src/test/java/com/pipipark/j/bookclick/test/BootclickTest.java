@@ -5,7 +5,7 @@ import com.pipipark.j.bootclick.handler.startup.BootclickStartUpHandler;
 import com.pipipark.j.system.core.PPPConstant;
 
 @SuppressWarnings("serial")
-@IndexBootclick(PPPConstant.Indexs.HIGHEST_INDEX)
+@IndexBootclick(PPPConstant.Index.Highest)
 public class BootclickTest implements BootclickStartUpHandler {
 
 	@Override

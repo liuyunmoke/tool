@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.pipipark.j.mvc.core.PPPResonpse;
 import com.pipipark.j.system.IPPPark;
 import com.pipipark.j.system.core.PPPVersion;
 import com.pipipark.j.system.entity.PPPEntity;
+import com.pipipark.j.web.core.PPPResonpse;
 
 @SuppressWarnings("serial")
 public abstract class AbsSpringMvcServiceHandler extends PPPEntity implements IPPPark {

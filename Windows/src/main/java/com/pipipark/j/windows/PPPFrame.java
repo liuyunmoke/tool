@@ -42,7 +42,7 @@ public class PPPFrame {
 	private void initialize() {
 		PPPLogger.debug(PPPFrame.class,"启动面板");
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(PPPConstant.Systems.DEFAULT_RESOURCE_PATH+"windows/icon.jpg")));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("windows/icon/logo.jpg")));
 		frame.setTitle("应用程序");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

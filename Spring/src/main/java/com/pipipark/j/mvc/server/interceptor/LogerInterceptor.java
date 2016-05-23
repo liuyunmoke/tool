@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pipipark.j.mvc.PPPMvcInterceptor;
 import com.pipipark.j.system.annotation.PPPIndex;
+import com.pipipark.j.system.core.PPPConstant;
 import com.pipipark.j.system.core.PPPLogger;
 
 /***
@@ -14,7 +15,7 @@ import com.pipipark.j.system.core.PPPLogger;
  * @author pipipark:cwj
  */
 @SuppressWarnings("serial")
-@PPPIndex(50)
+@PPPIndex(PPPConstant.Index.Highest)
 public class LogerInterceptor implements PPPMvcInterceptor {
 
 	@Override

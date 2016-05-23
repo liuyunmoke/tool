@@ -12,13 +12,13 @@ import com.pipipark.j.system.core.PPPConstant;
  * @author pipipark:cwj
  */
 @SuppressWarnings("serial")
-@PPPIndex(PPPConstant.Indexs.HIGHEST_INDEX)
-public class CharEncodingFilter extends CharacterEncodingFilter implements
+@PPPIndex(PPPConstant.Index.Highest)
+public class DefaultCharEncodingFilter extends CharacterEncodingFilter implements
 		PPPMvcFilter, PPPInitMethod<CharacterEncodingFilter> {
 
 	@Override
 	public void init_method(CharacterEncodingFilter t) {
-		t.setEncoding("UTF-8");
+		t.setEncoding(PPPConstant.Charset.Default.value());
 		t.setForceEncoding(true);
 	}
 

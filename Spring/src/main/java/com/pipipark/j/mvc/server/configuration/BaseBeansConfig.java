@@ -12,10 +12,10 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import com.pipipark.j.mvc.core.PPPContext;
 import com.pipipark.j.mvc.server.processor.BeanAfterInitProcessor;
 import com.pipipark.j.mvc.server.processor.BeanBeforeInitProcessor;
 import com.pipipark.j.system.core.PPPConstant;
+import com.pipipark.j.web.core.PPPContext;
 
 /***
  * Bean注入配置.
@@ -61,7 +61,7 @@ public class BaseBeansConfig {
 			throw new IOException("class path resource no found.");
 		}
 		p.setLocations(resources);
-		p.setFileEncoding(PPPConstant.Systems.DEFAULT_CHARSET);
+		p.setFileEncoding(PPPConstant.Charset.Default.toString());
 		return p;
 	}
 	

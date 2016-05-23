@@ -1,6 +1,8 @@
-package com.pipipark.j.mvc.core;
+package com.pipipark.j.web.core;
 
 import java.util.Properties;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.pipipark.j.system.IPPPark;
 import com.pipipark.j.system.core.PPPString;
@@ -22,7 +25,9 @@ import com.pipipark.j.system.core.PPPString;
 @SuppressWarnings("serial")
 public class PPPContext implements ApplicationContextAware,IPPPark {
 	
-	private static Properties properties;
+	private static Properties _properties;
+	public static ServletContext _servletContext; 
+	private static ApplicationContext  _applicationContext;
 	
 	/**
 	 * mvc服务类默认(约定)执行的方法名.
@@ -31,7 +36,7 @@ public class PPPContext implements ApplicationContextAware,IPPPark {
 	
 	@Value("#{properties}")
 	public void setProperties(Properties p){
-		properties = p;
+		_properties = p;
 	}
 	
 	/**
@@ -40,14 +45,24 @@ public class PPPContext implements ApplicationContextAware,IPPPark {
 	 * @return value
 	 */
 	public static String properties(String key){
-		Object val = properties.get(key);
+		Object val = _properties.get(key);
 		if(val!=null){
 			return val.toString();
 		}
 		return null;
 	}
+	 
+	/**
+	 * @return ApplicationContext
+	 */
+	public static ServletContext servletContext() {
+		return _servletContext;
+	}
 	
-	private static ApplicationContext _applicationContext;
+	public static void servletContext(ServletContext sc) {
+		_servletContext = sc;
+	}
+	
 	/**
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
 	 * 

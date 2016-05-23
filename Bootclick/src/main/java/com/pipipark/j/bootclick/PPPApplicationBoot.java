@@ -53,8 +53,7 @@ public class PPPApplicationBoot implements PPPBoot {
 		// List<Class> initClazzs = new ArrayList<Class>();
 		List<Class> shutdownClazzs = new ArrayList<Class>();
 
-		PPPScan scaner = new PPPScan();
-		Set<Class> clazzs = scaner.doScan("com");
+		Set<Class> clazzs = PPPScan.doScan("com");
 		
 		for (Class clazz : clazzs) {
 			for (Class ic : clazz.getInterfaces()) {
@@ -115,17 +114,17 @@ public class PPPApplicationBoot implements PPPBoot {
 				Class temp = null;
 				Annotation ai = a.getAnnotation(IndexBootclick.class);
 				Annotation bi = b.getAnnotation(IndexBootclick.class);
-				int aInt = PPPConstant.Indexs.MINIMUM_INDEX;
-				int bInt = PPPConstant.Indexs.MINIMUM_INDEX;
+				int aInt = PPPConstant.Index.Minimum.value();
+				int bInt = PPPConstant.Index.Minimum.value();
 				if (ai == null) {
-					aInt = PPPConstant.Indexs.DEFAULT_INDEX;
+					aInt = PPPConstant.Index.Default.value();
 				} else {
-					aInt = ((IndexBootclick) ai).value();
+					aInt = ((IndexBootclick) ai).value().value();
 				}
 				if (bi == null) {
-					bInt = PPPConstant.Indexs.DEFAULT_INDEX;
+					bInt = PPPConstant.Index.Default.value();
 				} else {
-					aInt = ((IndexBootclick) bi).value();
+					aInt = ((IndexBootclick) bi).value().value();
 				}
 				if (aInt > bInt) {
 					temp = b;

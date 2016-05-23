@@ -2,11 +2,7 @@ package com.pipipark.j.mvc.server.processor;
 
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.web.context.ServletContextAware;
-
 import com.pipipark.j.mvc.PPPMvcPostProcessor;
 import com.pipipark.j.mvc.PPPServerPostProcessor;
 import com.pipipark.j.mvc.server.scaner.PPPPostProcessorScaner;
@@ -21,7 +17,7 @@ import com.pipipark.j.system.core.PPPString;
  * @author Administrator
  *
  */
-public class BeanAfterInitProcessor implements InitializingBean,ServletContextAware {
+public class BeanAfterInitProcessor implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -45,10 +41,4 @@ public class BeanAfterInitProcessor implements InitializingBean,ServletContextAw
 			PPPLogger.systemInfo("Post processor end");
 		}
 	}
-
-	@Override
-	public void setServletContext(ServletContext servletContext) {
-		
-	}
-
 }

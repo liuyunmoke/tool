@@ -9,6 +9,8 @@ import org.springframework.web.WebApplicationInitializer;
 import com.pipipark.j.mvc.PPPMvcInitializer;
 import com.pipipark.j.system.classscan.v2.PPPScan;
 import com.pipipark.j.system.core.PPPLogger;
+import com.pipipark.j.system.core.PPPString;
+import com.pipipark.j.web.core.PPPContext;
 
 /***
  * 扫描加载初始化,
@@ -23,7 +25,10 @@ public class StartedInitializer implements WebApplicationInitializer,PPPMvcIniti
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		PPPLogger.systemInfo("Server initializer start");
 		//启动
-		PPPScan.scaner(PPPMvcInitializer.BASE_PACKAGE,"com.iwop");
+		String packages = servletContext.getInitParameter("scan");
+		PPPString.split(packages, ",");
+		PPPContext.servletContext(servletContext);
+		PPPScan.scaner(BASE_PACKAGE, packages);
 	}
 
 }

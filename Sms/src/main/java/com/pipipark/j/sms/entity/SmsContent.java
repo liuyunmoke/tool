@@ -57,7 +57,7 @@ public class SmsContent extends PPPEntity {
 		string.append(this.serializedName("content"));
 		string.append("=");
 		try {
-			encodeContent = URLEncoder.encode(content, PPPConstant.Systems.DEFAULT_CHARSET);
+			encodeContent = URLEncoder.encode(content, PPPConstant.Charset.Default.value());
 		} catch (UnsupportedEncodingException e) {
 			throw new PPPServiceException("url encoder happen Exception!", e);
 		}

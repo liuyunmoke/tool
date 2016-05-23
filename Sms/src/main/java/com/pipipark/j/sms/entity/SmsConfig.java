@@ -91,7 +91,7 @@ public class SmsConfig extends PPPEntity {
 			string.append("=");
 			try {
 				String val = params.get(key);
-				val = URLEncoder.encode(val, PPPConstant.Systems.DEFAULT_CHARSET);
+				val = URLEncoder.encode(val, PPPConstant.Charset.Default.value());
 				string.append(val);
 			} catch (UnsupportedEncodingException e) {
 				throw new PPPServiceException("url encoder happen Exception!", e);

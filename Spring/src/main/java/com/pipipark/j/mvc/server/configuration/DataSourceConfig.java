@@ -9,24 +9,26 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.pipipark.j.web.core.PPPContext;
+
 /***
  * 数据源
  * @author pipipark:cwj
  */
 @Configuration
-@PropertySource({"classpath:database.properties"})
+//@PropertySource({"classpath:database.properties"})
 public class DataSourceConfig {
 	
-	@Value("${jdbc.driver}")  
+//	@Value("${jdbc.driver}")  
     String driverClass;
 	
-    @Value("${jdbc.url}")  
+//  @Value("${jdbc.url}")  
     String url;
     
-    @Value("${jdbc.username}")  
+//    @Value("${jdbc.username}")  
     String userName;
     
-    @Value("${jdbc.password}")  
+//    @Value("${jdbc.password}")  
     String passWord;
 	
 	/**
@@ -40,6 +42,10 @@ public class DataSourceConfig {
 	@Bean(name = "dataSource")  
     public DataSource dataSource() {  
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        this.driverClass = PPPContext.servletContext().getInitParameter("jdbc.driver");
+        this.url = PPPContext.servletContext().getInitParameter("jdbc.url");
+        this.userName = PPPContext.servletContext().getInitParameter("jdbc.username");
+        this.passWord = PPPContext.servletContext().getInitParameter("jdbc.password");
         dataSource.setDriverClassName(driverClass);
         dataSource.setUrl(url);
         dataSource.setUsername(userName);

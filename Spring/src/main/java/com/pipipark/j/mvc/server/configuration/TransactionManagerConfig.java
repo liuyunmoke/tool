@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
 
 /***
  * Spring事务管理配置.
@@ -32,4 +33,5 @@ public class TransactionManagerConfig {
 		manager.setDataSource(dataSource);
 		return manager;
 	}
+	
 }

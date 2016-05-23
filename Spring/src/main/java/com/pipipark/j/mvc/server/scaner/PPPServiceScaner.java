@@ -1,9 +1,9 @@
 package com.pipipark.j.mvc.server.scaner;
 
 import com.pipipark.j.mvc.PPPMvcService;
-import com.pipipark.j.mvc.core.PPPContext;
 import com.pipipark.j.system.classscan.v2.PPPClassesScaner;
 import com.pipipark.j.system.classscan.v2.PPPScanEntity;
+import com.pipipark.j.web.core.PPPContext;
 
 /***
  * 扫描器(服务接口).

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pipipark.j.mvc.PPPMvcController;
-import com.pipipark.j.mvc.core.PPPResonpse;
 import com.pipipark.j.mvc.server.handler.exception.PPPServiceHandlerError;
 import com.pipipark.j.mvc.server.handler.servicehandler.DefaultSpringMvcServiceHandler;
 import com.pipipark.j.mvc.server.handler.servicehandler.AbsSpringMvcServiceHandler;
@@ -26,6 +25,7 @@ import com.pipipark.j.system.core.PPPString;
 import com.pipipark.j.system.core.PPPVersion;
 import com.pipipark.j.system.core.exception.PPPVersionException;
 import com.pipipark.j.system.entity.PPPEntity;
+import com.pipipark.j.web.core.PPPResonpse;
 
 /***
  * 版本控制器, 接受所有业务http请求, 分析请求头和特殊参数.

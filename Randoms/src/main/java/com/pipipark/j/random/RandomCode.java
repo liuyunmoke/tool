@@ -134,7 +134,7 @@ public class RandomCode extends SimplePPPEntity {
 			try {
 				db.open();
 				List<RCode> code = db.executeQuery("select * from rcode where key='"+key+"'", RCode.class);
-				String date = PPPDate.now().format(PPPConstant.DateFormats.yyyy_MM_dd_HH_mm_ss_SSS);
+				String date = PPPDate.now().format(PPPDate.Dateformat.yyyyMMddHHmmssSSS);
 				if(code==null || code.isEmpty()){
 					db.executeUpdate("insert into rcode ('key','code','updateDate') values ('"+key+"', '"+contentBuilder.toString()+"', '"+date+"')");
 				}else{

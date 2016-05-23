@@ -69,7 +69,7 @@ public class DispatchServletConfig extends WebMvcConfigurationSupport {
 	@Bean
     public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver fileUpload = new CommonsMultipartResolver(); 
-		fileUpload.setDefaultEncoding(PPPConstant.Systems.DEFAULT_CHARSET);
+		fileUpload.setDefaultEncoding(PPPConstant.Charset.Default.value());
 		fileUpload.setMaxUploadSize(20971520);
 		fileUpload.setMaxInMemorySize(40960);
         return fileUpload;  

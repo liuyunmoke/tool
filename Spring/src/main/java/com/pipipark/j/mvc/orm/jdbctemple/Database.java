@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.pipipark.j.mvc.core.PPPContext;
 import com.pipipark.j.system.core.PPPDate;
 import com.pipipark.j.system.core.PPPString;
 import com.pipipark.j.system.entity.PPPEntity;
+import com.pipipark.j.web.core.PPPContext;
 
 @SuppressWarnings("serial")
 @Repository("PPParkDatabase")

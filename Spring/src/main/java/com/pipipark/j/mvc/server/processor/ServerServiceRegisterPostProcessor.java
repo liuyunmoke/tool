@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.pipipark.j.mvc.PPPServerPostProcessor;
-import com.pipipark.j.mvc.core.PPPContext;
 import com.pipipark.j.mvc.server.exception.PPPServiceExecuteMethodRepeatException;
 import com.pipipark.j.mvc.server.scaner.PPPServiceScaner;
 import com.pipipark.j.system.annotation.PPPIndex;
@@ -18,6 +17,7 @@ import com.pipipark.j.system.classscan.v2.PPPScanerManager;
 import com.pipipark.j.system.core.PPPConstant;
 import com.pipipark.j.system.core.PPPLogger;
 import com.pipipark.j.system.core.PPPString;
+import com.pipipark.j.web.core.PPPContext;
 
 /***
  * 服务注册处理器,
@@ -25,7 +25,7 @@ import com.pipipark.j.system.core.PPPString;
  * @author pipipark:cwj
  */
 @SuppressWarnings("serial")
-@PPPIndex(PPPConstant.Indexs.HIGHEST_INDEX)
+@PPPIndex(PPPConstant.Index.Highest)
 public class ServerServiceRegisterPostProcessor implements PPPServerPostProcessor {
 	
 	@Override

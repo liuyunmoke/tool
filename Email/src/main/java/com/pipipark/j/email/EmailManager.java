@@ -20,7 +20,7 @@ public class EmailManager {
 		FieldVaildater.vaildate(conf);
 		
 		HtmlEmail sender = new HtmlEmail();
-		sender.setCharset(PPPConstant.Systems.DEFAULT_CHARSET);
+		sender.setCharset(PPPConstant.Charset.Default.value());
 		sender.setFrom(conf.username());
 		sender.setHostName(conf.host());
 		sender.setAuthentication(conf.username(),conf.password());
